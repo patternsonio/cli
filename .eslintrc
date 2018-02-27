@@ -4,6 +4,33 @@
     "sourceType": "script"
   },
   "rules": {
-    "arrow-body-style": 0
-  }
+    "arrow-body-style": 0,
+    "prefer-destructuring": 0,
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "never"
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.spec.js", "**/test/**", "**/__mocks__/**"],
+      "env": {
+        "jest": "true"
+      },
+      "rules": {
+        "import/no-extraneous-dependencies": [
+          2,
+          {
+            "devDependencies": true
+          }
+        ]
+      }
+    }
+  ]
 }

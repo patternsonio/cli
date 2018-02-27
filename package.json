@@ -1,0 +1,34 @@
+{
+  "name": "@patternson/cli",
+  "version": "0.1.0",
+  "description": "command line interface for patternson",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/patternsonio/cli.git"
+  },
+  "keywords": [
+    "cli",
+    "patternson",
+    "pattern",
+    "library",
+    "hosting"
+  ],
+  "author": "Hannes Diercks <patternson-cli@xiphe.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/patternsonio/cli/issues"
+  },
+  "homepage": "https://github.com/patternsonio/cli#readme",
+  "devDependencies": {
+    "eslint": "4.18.1",
+    "eslint-config-airbnb-base": "12.1.0",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-plugin-import": "2.9.0",
+    "eslint-plugin-prettier": "2.6.0",
+    "prettier": "1.11.0"
+  }
+}

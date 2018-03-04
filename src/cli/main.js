@@ -5,6 +5,7 @@ const pkg = require('../../package');
 const update = require('update-notifier');
 
 const publish = require('../publish');
+const catchrest = require('../catchrest');
 
 update({ pkg }).notify();
 
@@ -18,5 +19,7 @@ program
   .description('publish the current version of a patternson library')
   // .option('-r, --recursive', 'Remove recursively')
   .action(publish);
+
+program.command('*').action(catchrest);
 
 program.parse(process.argv);

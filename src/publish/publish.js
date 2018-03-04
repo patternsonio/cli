@@ -32,7 +32,7 @@ module.exports = function publish(cmd) {
         });
       })
       .then(() => {
-        process.stdout.write(chalk.green('Upload OK!\n'));
+        process.stdout.write(chalk.hex('#5EFFA9')('Upload OK!\n'));
         // process.stdout.write(
         //   chalk.dim('Monitoring compiler (CTRL+C to abort)\n')
         // );
@@ -42,7 +42,9 @@ module.exports = function publish(cmd) {
       // })
       .catch((err) => {
         process.stderr.write(
-          chalk.red(`ERR: ${err.message.length ? err.message : 'Unknown'}\n`)
+          chalk.hex('#FD4063')(
+            `ERR: ${err.message.length ? err.message : 'Unknown'}\n`
+          )
         );
         process.exit(1);
       })

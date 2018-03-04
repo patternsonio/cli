@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "adm-zip": "0.4.7",
-    "chalk": "2.3.1",
+    "chalk": "^2.3.1",
     "commander": "2.14.1",
     "import-local-file": "0.2.0",
     "node-fetch": "2.0.0",

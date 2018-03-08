@@ -7,6 +7,10 @@ const readPkgUp = require('read-pkg-up');
 const pkgResult = readPkgUp.sync();
 const rootDir = path.dirname(pkgResult.path);
 
+function addSlash(thing) {
+  return thing.match(/\/$/) ? thing : `${thing}/`;
+}
+
 const rcConfig = rc(
   'patternson',
   Object.assign(
@@ -22,5 +26,9 @@ const rcConfig = rc(
 );
 
 module.exports = function getConfig(extra) {
-  return Object.assign({}, rcConfig, extra);
+  const config = Object.assign({}, rcConfig, extra);
+
+  return Object.assign(config, {
+    registryUrl: addSlash(config.registryUrl),
+  });
 };

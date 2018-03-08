@@ -17,7 +17,6 @@ program
 program
   .command('publish')
   .description('publish the current version of a patternson library')
-  // .option('-r, --recursive', 'Remove recursively')
   .action(publish);
 
 program.command('*').action(catchrest);

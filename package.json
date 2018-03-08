@@ -7,7 +7,9 @@
     "test": "jest",
     "lint": "eslint ."
   },
-  "bin": "src/cli/cli.js",
+  "bin": {
+    "patternson": "src/cli/cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/patternsonio/cli.git"

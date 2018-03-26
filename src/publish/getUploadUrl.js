@@ -2,12 +2,8 @@
 
 const fetch = require('node-fetch');
 
-function addSlash(thing) {
-  return thing.match(/\/$/) ? thing : `${thing}/`;
-}
-
 module.exports = function getUploadUrl(config) {
-  const url = `${addSlash(config.registryUrl)}get-upload-url/${config.name}/${
+  const url = `${config.registryUrl}get-upload-url/${config.name}/${
     config.version
   }`;
 

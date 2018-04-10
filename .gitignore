@@ -1,6 +1,7 @@
 coverage/
 node_modules/
+lib/
+demo/
 npm-debug.log
 .DS_Store
 .patternsonrc
-demo

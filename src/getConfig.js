@@ -1,8 +1,6 @@
-'use strict';
-
-const path = require('path');
-const rc = require('rc');
-const readPkgUp = require('read-pkg-up');
+import path from 'path';
+import rc from 'rc';
+import readPkgUp from 'read-pkg-up';
 
 const pkgResult = readPkgUp.sync();
 const rootDir = path.dirname(pkgResult.path);
@@ -11,24 +9,20 @@ function addSlash(thing) {
   return thing.match(/\/$/) ? thing : `${thing}/`;
 }
 
-const rcConfig = rc(
-  'patternson',
-  Object.assign(
-    {
-      registryUrl: 'https://reg.patternson.io',
-      rootDir,
-      componentsDir: 'src/components',
-      name: pkgResult.pkg.name,
-      version: pkgResult.pkg.version,
-    },
-    pkgResult.pkg.patternson || {}
-  )
-);
+const rcConfig = rc('patternson', {
+  registryUrl: 'https://reg.patternson.io',
+  rootDir,
+  componentsDir: 'src/components',
+  name: pkgResult.pkg.name,
+  version: pkgResult.pkg.version,
+  ...pkgResult.pkg.patternson,
+});
 
-module.exports = function getConfig(extra) {
-  const config = Object.assign({}, rcConfig, extra);
+export default function getConfig(extra) {
+  const config = { ...rcConfig, ...extra };
 
-  return Object.assign(config, {
+  return {
+    ...config,
     registryUrl: addSlash(config.registryUrl),
-  });
-};
+  };
+}

@@ -1,11 +1,12 @@
-'use strict';
+/* eslint-disable import/first */
 
-const program = require('commander');
-const pkg = require('../../package');
-const update = require('update-notifier');
+import './polyfills';
 
-const publish = require('../publish');
-const catchrest = require('../catchrest');
+import program from 'commander';
+import update from 'update-notifier';
+import * as pkg from '../../package.json';
+import publish from '../publish';
+import catchrest from '../catchrest';
 
 update({ pkg }).notify();
 

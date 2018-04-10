@@ -1,16 +1,13 @@
-'use strict';
+import chalk from 'chalk';
 
-const chalk = require('chalk');
-
-const log = console.log;
-
-module.exports = function publish(cb) {
-  log(
+export default function publish(arg) {
+  // eslint-disable-next-line no-console
+  console.log(
     chalk.hex('#FD4063')('%s is an unknown command.') +
       chalk.hex('#5EFFA9')(
-        '\nDo you want to see it working?\nLet us know here '
+        '\nDo you want to see it working?\nLet us know here ',
       ) +
       chalk.hex('#4EB9FD')('https://github.com/patternsonio/cli/issues/new'),
-    cb
+    arg,
   );
-};
+}

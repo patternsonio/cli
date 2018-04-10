@@ -1,14 +1,12 @@
-'use strict';
+import * as path from 'path';
+import AdmZip from 'adm-zip';
 
-const path = require('path');
-const AdmZip = require('adm-zip');
-
-module.exports = function zipComponents(config) {
+export default function zipComponents(config) {
   const componentsDir = path.resolve(config.rootDir, config.componentsDir);
 
   const zip = new AdmZip();
 
   zip.addLocalFolder(componentsDir, 'components');
 
-  return Promise.resolve(zip.toBuffer());
-};
+  return zip.toBuffer();
+}

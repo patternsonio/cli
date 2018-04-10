@@ -1,52 +1,36 @@
-'use strict';
+import chalk from 'chalk';
+import fetch from 'node-fetch';
+import getConfig from '../getConfig';
+import getUploadUrl from './getUploadUrl';
+import zipComponents from './zipComponents';
 
-const getConfig = require('../getConfig');
-const getUploadUrl = require('./getUploadUrl');
-const zipComponents = require('./zipComponents');
-// const monitorCompiler = require('./monitorCompiler');
-const chalk = require('chalk');
-const fetch = require('node-fetch');
+export default async function publish(cmd) {
+  try {
+    const config = getConfig(cmd.options);
 
-module.exports = function publish(cmd) {
-  const config = getConfig(cmd.options);
+    const [url, zip] = await Promise.all([
+      getUploadUrl(config),
+      zipComponents(config),
+    ]);
 
-  return (
-    Promise.all([getUploadUrl(config), zipComponents(config)])
-      .then((result) => {
-        const url = result[0];
-        const zip = result[1];
+    const res = await fetch(url, {
+      method: 'PUT',
+      body: zip,
+    });
 
-        return fetch(url, {
-          method: 'PUT',
-          body: zip,
-        }).then((res) => {
-          if (res.status !== 200) {
-            return Promise.reject(
-              new Error(
-                `ERR: upload failed with ${res.status} - ${res.statusText}`
-              )
-            );
-          }
+    if (res.status !== 200) {
+      throw new Error(
+        `ERR: upload failed with ${res.status} - ${res.statusText}`,
+      );
+    }
 
-          return Promise.resolve();
-        });
-      })
-      .then(() => {
-        process.stdout.write(chalk.hex('#5EFFA9')('Upload OK!\n'));
-        // process.stdout.write(
-        //   chalk.dim('Monitoring compiler (CTRL+C to abort)\n')
-        // );
-      })
-      // .then(() => {
-      //   return monitorCompiler(config);
-      // })
-      .catch((err) => {
-        process.stderr.write(
-          chalk.hex('#FD4063')(
-            `ERR: ${err.message.length ? err.message : 'Unknown'}\n`
-          )
-        );
-        process.exit(1);
-      })
-  );
-};
+    process.stdout.write(chalk.hex('#5EFFA9')('Upload OK!\n'));
+  } catch (err) {
+    process.stderr.write(
+      chalk.hex('#FD4063')(
+        `ERR: ${err.message.length ? err.message : 'Unknown'}\n`,
+      ),
+    );
+    process.exit(1);
+  }
+}

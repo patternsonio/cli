@@ -1,8 +1,6 @@
-'use strict';
+import fetch from 'node-fetch';
 
-const fetch = require('node-fetch');
-
-module.exports = function getUploadUrl(config) {
+export default function getUploadUrl(config) {
   const url = `${config.registryUrl}get-upload-url/${config.name}/${
     config.version
   }`;
@@ -19,7 +17,7 @@ module.exports = function getUploadUrl(config) {
         return res.text().then((data) => {
           try {
             return Promise.reject(
-              new Error(`[${res.status}] ${JSON.parse(data).Message}`)
+              new Error(`[${res.status}] ${JSON.parse(data).Message}`),
             );
           } catch (e) {
             return Promise.reject(new Error(`[${res.status}] ${data}`));
@@ -30,4 +28,4 @@ module.exports = function getUploadUrl(config) {
       return res.json();
     })
     .then((data) => data.url);
-};
+}

@@ -1,36 +1,66 @@
-import chalk from 'chalk';
 import fetch from 'node-fetch';
+import Client from '@patternson/registry-client';
+import gql from 'graphql-tag';
 import getConfig from '../getConfig';
-import getUploadUrl from './getUploadUrl';
+import monitorPublish from './monitorPublish';
 import zipComponents from './zipComponents';
+import PublishLog, { STATE_DONE, STATE_PROGRESS } from './PublishLog';
 
-export default async function publish(cmd) {
+const uploadUrlQuery = gql`
+  query getUploadUrl($name: String!, $version: String!) {
+    uploadUrl(name: $name, version: $version)
+  }
+`;
+
+export default async function publish({ options }) {
+  const log = new PublishLog();
+
   try {
-    const config = getConfig(cmd.options);
+    const {
+      accessToken,
+      registryUrl,
+      name,
+      version,
+      rootDir,
+      componentsDir,
+    } = getConfig(options);
 
-    const [url, zip] = await Promise.all([
-      getUploadUrl(config),
-      zipComponents(config),
-    ]);
+    log.setState({
+      name,
+      version,
+    });
 
-    const res = await fetch(url, {
+    const client = new Client({
+      accessToken,
+      registryUrl,
+    });
+
+    const { data: { uploadUrl } } = await client.query({
+      query: uploadUrlQuery,
+      variables: {
+        name,
+        version,
+      },
+    });
+
+    const zip = zipComponents({ rootDir, componentsDir });
+
+    log.setSteps({
+      prepare: STATE_DONE,
+      upload: STATE_PROGRESS,
+    });
+
+    const { status, statusText } = await fetch(uploadUrl, {
       method: 'PUT',
       body: zip,
     });
 
-    if (res.status !== 200) {
-      throw new Error(
-        `ERR: upload failed with ${res.status} - ${res.statusText}`,
-      );
+    if (status !== 200) {
+      throw new Error(`ERR: upload failed with ${status} - ${statusText}`);
     }
 
-    process.stdout.write(chalk.hex('#5EFFA9')('Upload OK!\n'));
+    await monitorPublish({ client, name, version, log });
   } catch (err) {
-    process.stderr.write(
-      chalk.hex('#FD4063')(
-        `ERR: ${err.message.length ? err.message : 'Unknown'}\n`,
-      ),
-    );
-    process.exit(1);
+    log.error(err);
   }
 }

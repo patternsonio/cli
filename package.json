@@ -1,6 +1,6 @@
 {
   "name": "@patternson/cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "command line interface for patternson",
   "main": "index.js",
   "scripts": {

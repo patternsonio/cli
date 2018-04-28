@@ -1,12 +1,22 @@
 import * as path from 'path';
-import AdmZip from 'adm-zip';
+import Archiver from 'archiver';
 
 export default function zipComponents({ rootDir, componentsDir }) {
   const absComponentsDir = path.resolve(rootDir, componentsDir);
 
-  const zip = new AdmZip();
+  const zip = new Archiver('zip');
 
-  zip.addLocalFolder(absComponentsDir, 'components');
+  zip.directory(absComponentsDir, 'components');
+  zip.finalize();
 
-  return zip.toBuffer();
+  return new Promise((resolve, reject) => {
+    const bufs = [];
+    zip.on('data', (d) => {
+      bufs.push(d);
+    });
+    zip.on('err', reject);
+    zip.on('end', () => {
+      resolve(Buffer.concat(bufs));
+    });
+  });
 }

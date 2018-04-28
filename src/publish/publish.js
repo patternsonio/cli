@@ -43,7 +43,7 @@ export default async function publish({ options }) {
       },
     });
 
-    const zip = zipComponents({ rootDir, componentsDir });
+    const zip = await zipComponents({ rootDir, componentsDir });
 
     log.setSteps({
       prepare: STATE_DONE,

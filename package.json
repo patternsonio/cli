@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@patternson/registry-client": "1.2.3",
-    "adm-zip": "0.4.9",
+    "archiver": "2.1.1",
     "babel-runtime": "6.26.0",
     "chalk": "2.4.1",
     "cli-spinners": "1.3.1",

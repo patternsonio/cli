@@ -16,6 +16,7 @@ export default function access({ options }) {
   const client = new Client({
     accessToken,
     registryUrl,
+    disableOffline: true,
   });
 
   return client

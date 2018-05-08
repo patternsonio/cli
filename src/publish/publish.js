@@ -33,9 +33,12 @@ export default async function publish({ options }) {
     const client = new Client({
       accessToken,
       registryUrl,
+      disableOffline: true,
     });
 
-    const { data: { uploadUrl } } = await client.query({
+    const {
+      data: { uploadUrl },
+    } = await client.query({
       query: uploadUrlQuery,
       variables: {
         name,

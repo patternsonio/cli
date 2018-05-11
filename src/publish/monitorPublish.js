@@ -66,7 +66,6 @@ export default async function monitorPublish({ client, name, version, log }) {
             if (finished === STATE_DONE) {
               subscription.unsubscribe();
               resolve();
-              process.exit();
             }
 
             if (error) {

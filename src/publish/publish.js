@@ -12,9 +12,7 @@ const uploadUrlQuery = gql`
   }
 `;
 
-export default async function publish({ options }) {
-  const log = new PublishLog();
-
+export default async function publish({ options }, log = new PublishLog()) {
   try {
     const {
       accessToken,

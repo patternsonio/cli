@@ -3,6 +3,10 @@
 <h2 align="center">Create, Run and Publish helper for <a href="https://patternson.io">Patternson</a> Libraries.
 </h2>
 
+## Install
+
+`npm i -g @patternson/cli`
+
 ## Config
 
 There are multiple ways to configure the patternson cli.

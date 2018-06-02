@@ -19,8 +19,21 @@ update({ pkg }).notify();
 
 program
   .version(pkg.version, '-v, --version')
-  .option('--accessToken', 'authentication token for registry')
-  .option('--registryUrl', 'http endpoint of the used patternson registry');
+  .option(
+    '--accessToken <token>',
+    'authentication token for patternson registry',
+  )
+  .option('--name <name>', 'name of the component library')
+  .option('--version <version>', 'version of the component library')
+  .option(
+    '--componentsDir <dir>',
+    'directory where all components can be found',
+  )
+  .option('--rootDir <dir>', 'root directory of the local library')
+  .option(
+    '--registryUrl <url>',
+    'http endpoint of the patternson registry\n\nSee https://github.com/patternsonio/cli#config for other ways to configure the cli\n',
+  );
 
 program
   .command('publish')

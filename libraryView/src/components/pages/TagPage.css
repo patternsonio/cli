@@ -1,0 +1,69 @@
+tag-page code .token.comment,
+tag-page code .token.prolog,
+tag-page code .token.doctype,
+tag-page code .token.cdata {
+  color: var(--placeholder-color);
+}
+
+tag-page code .namespace,
+tag-page code .token.punctuation {
+  color: var(--info-color);
+}
+
+tag-page code .token.property,
+tag-page code .token.tag,
+tag-page code .token.boolean,
+tag-page code .token.number,
+tag-page code .token.constant,
+tag-page code .token.symbol {
+  color: var(--dark);
+}
+
+tag-page code {
+  color: var(--success-color);
+}
+
+tag-page code .token.selector,
+tag-page code .token.attr-name,
+tag-page code .token.string,
+tag-page code .token.char,
+tag-page code .token.builtin,
+tag-page code .token.inserted {
+  color: var(--error-color);
+}
+
+tag-page code .token.operator,
+tag-page code .token.entity,
+tag-page code .token.url,
+.language-css tag-page code .token.string,
+.style tag-page code .token.string,
+tag-page code .token.variable {
+  color: var(--shadow-color);
+}
+
+tag-page code .token.atrule,
+tag-page code .token.attr-value,
+tag-page code .token.keyword {
+  color: var(--success-color);
+}
+
+tag-page code .token.regex,
+tag-page code .token.important {
+  color: var(--focus-color);
+}
+
+tag-page code .token.important,
+tag-page code .token.bold {
+  font-weight: bold;
+}
+tag-page code .token.italic {
+  font-style: italic;
+}
+
+tag-page code .token.entity {
+  cursor: help;
+}
+
+tag-page code .token.deleted {
+  color: var(--error-color);
+}

@@ -1,0 +1,9 @@
+{
+  "name": "library-view",
+  "dependencies": {
+    "escape-html": "^1.0.3",
+    "pretty": "^2.0.0",
+    "prismjs": "^1.15.0",
+    "stringify-attributes": "^1.0.0"
+  }
+}

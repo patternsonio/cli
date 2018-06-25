@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build": "babel src -d lib",
-    "prepublish": "npm run build",
+    "build": "concurrently -n 'babel,stencil' \"babel src -d lib\" \"cd libraryView && stencil build\"",
+    "build:watch": "concurrently -n 'babel,stencil' \"babel src -d lib --watch\" \"cd libraryView && stencil build --watch\"",
+    "prepare": "npm run build",
     "lint": "eslint ."
   },
   "bin": {

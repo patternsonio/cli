@@ -1,5 +1,5 @@
 import { Component, Prop } from '@stencil/core';
-import 'octopus';
+import '@patternson/octopus';
 
 @Component({
   tag: 'index-page',

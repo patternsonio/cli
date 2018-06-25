@@ -1,4 +1,4 @@
-import 'octopus';
+import '@patternson/octopus';
 import { Component, Prop, Element, State } from '@stencil/core';
 import stringifyAttributes from 'stringify-attributes';
 import pretty from 'pretty';

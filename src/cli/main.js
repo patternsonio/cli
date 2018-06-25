@@ -1,18 +1,14 @@
 /* eslint-disable import/first */
 
 import './polyfills';
-
 import program from 'commander';
 import update from 'update-notifier';
 import draftlog from 'draftlog';
 import * as pkg from '../../package.json';
-import publish from '../publish';
-import checkAccess from '../access';
-import catchrest from '../catchrest';
 import { yellow } from '../colors';
 
+// eslint-disable-next-line no-console
 console.log(yellow(`${pkg.name} v${pkg.version}`));
-
 draftlog.into(console);
 
 update({ pkg }).notify();
@@ -38,12 +34,18 @@ program
 program
   .command('publish')
   .description('publish the current version of a patternson library')
-  .action(publish);
+  .action(async (c) => {
+    const { default: publish } = await import('../publish');
+
+    return publish(c);
+  });
 
 program
   .command('access')
   .description('check access rights of current user')
   .action(async (c) => {
+    const { default: checkAccess } = await import('../access');
+
     try {
       console.log(await checkAccess(c));
     } catch (e) {
@@ -52,6 +54,10 @@ program
     }
   });
 
-program.command('*').action(catchrest);
+program.command('*').action(async (c) => {
+  const { default: catchRest } = await import('../catchrest');
+
+  return catchRest(c);
+});
 
 program.parse(process.argv);

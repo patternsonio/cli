@@ -5,7 +5,7 @@ import program from 'commander';
 import update from 'update-notifier';
 import draftlog from 'draftlog';
 import * as pkg from '../../package.json';
-import { yellow } from '../colors';
+import { yellow, pink } from '../colors';
 
 // eslint-disable-next-line no-console
 console.log(yellow(`${pkg.name} v${pkg.version}`));
@@ -48,6 +48,21 @@ program
 
     try {
       console.log(await checkAccess(c));
+    } catch (e) {
+      console.error(e);
+      process.exit(1);
+    }
+  });
+
+program
+  .command('dev')
+  .description('start development environment')
+  .action(async (c) => {
+    const serverMsg = console.draft(pink('starting dev-server...'));
+    const { default: dev } = await import('../dev');
+
+    try {
+      await dev(c, serverMsg);
     } catch (e) {
       console.error(e);
       process.exit(1);

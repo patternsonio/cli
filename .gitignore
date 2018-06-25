@@ -1,6 +1,7 @@
 coverage/
 node_modules/
 libraryView/node_modules/
+libraryView/src/components.d.ts
 libraryView/.stencil
 libraryView/www
 lib/
